@@ -1,9 +1,9 @@
 # SatJS
-Simple tax calcs for :mx:
+Calculos de impuestos para el SAT (aka El Diablo)
 
-## How to install?
+## Como instalar?
 ```bash
-$ git clone {this repo} # get the repo
+$ git clone https://github.com/Margudinh/satjs.git # get the repo
 $ npm install # install dependencies (this will take a while)
 $ npm start # Server ready at http://localhost:5000
 ```
