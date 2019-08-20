@@ -1,15 +1,16 @@
 const express = require('express');
-const bodyParser = require('body-parser');
 const multer = require('multer');
 const exphbs = require('express-handlebars');
 const fs = require('fs');
 const path = require('path');
-
-const intl = require('handlebars-intl');
-
+const tmp = require('tmp');
 const x2j = require('xml2js');
 
-const upload = multer({dest: './tmp'});
+
+
+const tmpvar = tmp.dirSync({dir: '.'});
+const upload = multer({dest: tmpvar.name});
+
 const hbs = exphbs.create({
     helpers: {
         currency: (val) => {
@@ -17,6 +18,7 @@ const hbs = exphbs.create({
         }
     }
 });
+
 const parser = new x2j.Parser();
 
 const PORT = process.env.PORT | 5000;
@@ -29,7 +31,7 @@ app.get('/', (req,res) => {
     res.render('index', {title: 'Calculo de Facturas'});
 });
 
-app.post('/', upload.any(), async (req, res) => {
+app.post('/', upload.any(), async (req, res, next) => {
 
     const facturas = []; 
     let resultado = {
@@ -69,9 +71,15 @@ app.post('/', upload.any(), async (req, res) => {
         });
 
     }
-
     res.render('result', {title :"Resultados", resultado: resultado, facturas: facturas});
+});
 
+process.on('SIGINT',()=>{
+    fs.rmdirSync(tmpvar.name);
+});
+
+process.on('exit', ()=>{
+    fs.rmdirSync(tmpvar.name);
 });
 
 app.listen(PORT, () => {
