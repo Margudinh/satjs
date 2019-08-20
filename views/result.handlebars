@@ -1,0 +1,27 @@
+<table>
+    <tbody>
+        <tr>
+            <th>Subtotal</th>
+            <th>Impuestos</th>
+            <th>Total</th> 
+        </tr>
+        {{#each facturas}}
+            <tr>
+                <td>{{currency subtotal}}</td>
+                <td>{{currency impuestos}}</td>
+                <td>{{currency total}}</td>
+            </tr>
+        {{/each}}
+    
+
+
+    {{#with resultado}}
+        <tr class = "teal">
+            <td>{{currency subtotal}}</td>
+            <td>{{currency impuestos}}</td>
+            <td>{{currency total}}</td>
+        </tr>
+    {{/with}}
+
+    </tbody>
+</table>
