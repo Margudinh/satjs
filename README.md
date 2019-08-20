@@ -1,5 +1,5 @@
 # SatJS
-Simple tax calcs for 🇲🇽
+Simple tax calcs for :mx:
 
 ## How to install?
 ```bash
